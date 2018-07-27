@@ -12,7 +12,6 @@ App({
     console.log('App Hide');
   },
   globalData: {
-    //填上开放者后台看见的corpId
-    corpId:'***'
+    corpId:''
   }
 });

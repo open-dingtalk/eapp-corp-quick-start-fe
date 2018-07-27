@@ -1,29 +1,24 @@
 let app = getApp();
-//替换成开发者后台设置的安全域名
-let url = "http://open.dingtalk.com";
+
 
 //内网穿透工具介绍:
 // https://open-doc.dingtalk.com/microapp/debug/ucof2g
-//let url = "http://your_sub_domain.vaiwan.com/";
+//替换成开发者后台设置的安全域名
+let url = "http://mcadomain.vaiwan.com";
 
 Page({
     data:{
         corpId: '',
         authCode:'',
-        userId:''
+        userId:'',
+        userName:'',
+        hideList: true,
     },
-    onLoad(){
-
-        let _this = this;
-
-        this.setData({
-            corpId: app.globalData.corpId
-        })
-
-         
-        dd.getCorpAuthCode({
+    loginSystem() {
+        dd.showLoading();
+        dd.getAuthCode({
             success:(res)=>{
-                _this.setData({
+                this.setData({
                     authCode:res.authCode
                 })
                 
@@ -34,29 +29,47 @@ Page({
                         authCode: res.authCode
                     },
                     dataType: 'json',
-                    success: function(res) {
+                    success: (res) => {
+                        //dd.alert({content: "step2"});
                         console.log('success----',res)
                         let userId = res.data.result.userId;
-                        _this.setData({
-                            userId:userId
+                        let userName = res.data.result.userName;
+                        this.setData({
+                            userId:userId,
+                            userName:userName,
+                            hideList:false
                         })
                     },
-                    fail: function(res) {
+                    fail: (res) => {
                         console.log("httpRequestFail---",res)
                        dd.alert({content: JSON.stringify(res)});
                     },
-                    complete: function(res) {
+                    complete: (res) => {
                         dd.hideLoading();
                     }
                     
                 });
             },
             fail: (err)=>{
+                //dd.alert({content: "step3"});
                 dd.alert({
                     content: JSON.stringify(err)
                 })
             }
         })
+
+    },
+    onLoad(){
+
+        let _this = this;
+
+        this.setData({
+            corpId: app.globalData.corpId
+        })
+        
+        //dd.alert({content: "step1"});
+         
+        
         
     }
 })
