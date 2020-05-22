@@ -5,7 +5,7 @@
   "window": {
     "enableWK": "YES",
     "enableDSL": true,
-    "defaultTitle": "企业内部E应用1.1",
+    "defaultTitle": "企业内部应用小程序1.1",
     "backgroundColor": "#F5F5F9",
     "pullRefresh": false,
     "allowsBounceVertical": true
